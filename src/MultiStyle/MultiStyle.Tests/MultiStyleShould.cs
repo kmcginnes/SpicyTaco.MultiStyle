@@ -23,6 +23,7 @@ namespace MultiStyle.Tests
         [InlineData("baz fiz", new[] { "baz", "fiz" })]
         [InlineData("foo bar baz fiz", new[] { "foo", "bar", "baz", "fiz" })]
         [InlineData("foo ", new[] { "foo" })]
+        [InlineData("foo    ", new[] { "foo" })]
         [InlineData(" foo", new[] { "foo" })]
         [InlineData("", new string[] { })]
         [InlineData("   ", new string[] { })]
@@ -31,7 +32,7 @@ namespace MultiStyle.Tests
         {
             var result = MultiStyleExtension.Parse(input);
 
-            result.Should().ContainInOrder(output);
+            result.ShouldBeEquivalentTo(output);
         }
     }
 
@@ -39,7 +40,7 @@ namespace MultiStyle.Tests
     {
         public static IEnumerable<string> Parse(string styleNames)
         {
-            return (styleNames ?? string.Empty).Split(' ');
+            return (styleNames ?? string.Empty).Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }
