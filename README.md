@@ -5,6 +5,12 @@ Compose your WPF styles just like in CSS.
 
 [My source of inspiration](http://web.archive.org/web/20101125040337/http://bea.stollnitz.com/blog/?p=384)
 
+Why not just use that code? It works, right?
+
+Sort of. When you run the code everything works as expected. Unfortunately, the designer is a different story. Controls look as if there are no styles applied.
+
+With the attached property you get pretty good designer support. I say pretty good because it does not update when you change one of the styles properties without a build. You could also make a change to the attached property, wait for the designer to catch up, then change it back.
+
 Usage Examples
 --------------
 
