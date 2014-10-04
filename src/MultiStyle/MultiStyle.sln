@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiStyle", "MultiStyle\Mu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiStyle.Tests", "MultiStyle.Tests\MultiStyle.Tests.csproj", "{60BA33EE-C47D-41DA-93B4-3499F4DFC08C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiStyle.Sample", "MultiStyle.Sample\MultiStyle.Sample.csproj", "{10FBEAEA-367D-4F0A-B7CB-064F5EF689D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{60BA33EE-C47D-41DA-93B4-3499F4DFC08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60BA33EE-C47D-41DA-93B4-3499F4DFC08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60BA33EE-C47D-41DA-93B4-3499F4DFC08C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10FBEAEA-367D-4F0A-B7CB-064F5EF689D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10FBEAEA-367D-4F0A-B7CB-064F5EF689D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10FBEAEA-367D-4F0A-B7CB-064F5EF689D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10FBEAEA-367D-4F0A-B7CB-064F5EF689D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
