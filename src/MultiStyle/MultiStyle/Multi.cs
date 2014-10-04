@@ -2,38 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Markup;
 
 namespace SpicyTaco.MultiStyle
 {
-    [MarkupExtensionReturnType(typeof(Style))]
-    public class MultiStyleExtension : MarkupExtension
+    public class Multi
     {
-        [ConstructorArgument("resourceKeys")]
-        public string ResourceKeys { get; set; }
+        public static readonly DependencyProperty StylesProperty = DependencyProperty.RegisterAttached(
+            "Styles", typeof(string), typeof(Multi), new PropertyMetadata(default(string), OnStylesChanged));
 
-        public MultiStyleExtension() { }
-
-        public MultiStyleExtension(string resourceKeys)
+        static void OnStylesChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            if (resourceKeys == null) throw new ArgumentNullException("resourceKeys");
+            var styleableControl = dependencyObject as FrameworkElement;
+            if (styleableControl == null) return;
 
-            ResourceKeys = resourceKeys;
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
             var resultStyle = new Style();
 
-            var styleNames = Parse(ResourceKeys).ToArray();
+            var styleNames = Parse(GetStyles(dependencyObject)).ToArray();
 
             if (!styleNames.Any()) throw new ArgumentException("No input resource keys specified.");
 
             foreach (var currentResourceKey in styleNames)
             {
-                var currentStyle = 
-                    new StaticResourceExtension(currentResourceKey)
-                        .ProvideValue(serviceProvider) as Style;
+                var currentStyle = styleableControl.FindResource(currentResourceKey) as Style;
 
                 if (currentStyle == null)
                 {
@@ -42,7 +32,17 @@ namespace SpicyTaco.MultiStyle
 
                 resultStyle = Merge(resultStyle, currentStyle);
             }
-            return resultStyle;
+            styleableControl.Style = resultStyle;
+        }
+
+        public static void SetStyles(DependencyObject element, string value)
+        {
+            element.SetValue(StylesProperty, value);
+        }
+
+        public static string GetStyles(DependencyObject element)
+        {
+            return (string)element.GetValue(StylesProperty);
         }
 
         public static IEnumerable<string> Parse(string styleNames)

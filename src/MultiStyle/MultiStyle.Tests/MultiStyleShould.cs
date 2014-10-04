@@ -29,7 +29,7 @@ namespace MultiStyle.Tests
         [InlineData(null, new string[] { })]
         public void ParseStyleNamesFromString(string input, IEnumerable<string> output)
         {
-            var result = MultiStyleExtension.Parse(input);
+            var result = Multi.Parse(input);
 
             result.ShouldBeEquivalentTo(output);
         }
@@ -44,7 +44,7 @@ namespace MultiStyle.Tests
             style.Resources.Add("key", new object());
             style.BasedOn = new Style();
 
-            var result = MultiStyleExtension.Clone(style);
+            var result = Multi.Clone(style);
 
             result.Should().NotBeSameAs(style);
             result.ShouldBeEquivalentTo(style);
@@ -58,7 +58,7 @@ namespace MultiStyle.Tests
             var style2 = new Style(typeof(Button));
             style2.Setters.Add(new Setter(FrameworkElement.HeightProperty, 10));
             style2.Setters.Add(new Setter(FrameworkElement.WidthProperty, 20));
-            var result = MultiStyleExtension.Merge(style1, style2);
+            var result = Multi.Merge(style1, style2);
 
             result.Setters.Should().HaveCount(3);
         }

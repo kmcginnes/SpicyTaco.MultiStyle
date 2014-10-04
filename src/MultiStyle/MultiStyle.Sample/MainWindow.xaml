@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MultiStyle.Sample.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ms="clr-namespace:SpicyTaco.MultiStyle;assembly=SpicyTaco.MultiStyle"
+        xmlns:st="clr-namespace:SpicyTaco.MultiStyle;assembly=SpicyTaco.MultiStyle"
         Title="MultiStyle Sample App" Height="350" Width="525">
     <Window.Resources>
         <Style x:Key="BigText" TargetType="TextBlock">
@@ -11,8 +11,14 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="GreenText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Green"/>
+        </Style>
+        <Style x:Key="PurpleText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Purple"/>
+        </Style>
     </Window.Resources>
     <Grid>
-        <TextBlock Text="MultiStyle Sample App" Style="{ms:MultiStyle BigText CenteredText}"/>
+        <TextBlock Text="MultiStyle Sample App" st:Multi.Styles="BigText CenteredText GreenText PurpleText"/>
     </Grid>
 </Window>
