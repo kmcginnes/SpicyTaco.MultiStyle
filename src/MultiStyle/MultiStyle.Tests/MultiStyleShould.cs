@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 using FluentAssertions;
+using SpicyTaco.MultiStyle;
 using Xunit;
 using Xunit.Extensions;
 
@@ -34,13 +33,34 @@ namespace MultiStyle.Tests
 
             result.ShouldBeEquivalentTo(output);
         }
-    }
 
-    public class MultiStyleExtension
-    {
-        public static IEnumerable<string> Parse(string styleNames)
+        [Fact]
+        public void CopyStyle()
         {
-            return (styleNames ?? string.Empty).Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries);
+            var style = new Style(typeof(FrameworkElement));
+            style.Setters.Add(new Setter(FrameworkElement.HeightProperty, 10));
+            style.Setters.Add(new EventSetter());
+            style.Triggers.Add(new DataTrigger());
+            style.Resources.Add("key", new object());
+            style.BasedOn = new Style();
+
+            var result = MultiStyleExtension.Clone(style);
+
+            result.Should().NotBeSameAs(style);
+            result.ShouldBeEquivalentTo(style);
+        }
+
+        [Fact]
+        public void MergeStyles()
+        {
+            var style1 = new Style(typeof(Button));
+            style1.Setters.Add(new Setter(FrameworkElement.WidthProperty, 10));
+            var style2 = new Style(typeof(Button));
+            style2.Setters.Add(new Setter(FrameworkElement.HeightProperty, 10));
+            style2.Setters.Add(new Setter(FrameworkElement.WidthProperty, 20));
+            var result = MultiStyleExtension.Merge(style1, style2);
+
+            result.Setters.Should().HaveCount(3);
         }
     }
 }
