@@ -6,17 +6,43 @@ using System.Windows.Markup;
 
 namespace SpicyTaco.MultiStyle
 {
+    [MarkupExtensionReturnType(typeof(Style))]
     public class MultiStyleExtension : MarkupExtension
     {
-        readonly IEnumerable<string> _resourceKeys;
+        [ConstructorArgument("resourceKeys")]
+        public string ResourceKeys { get; set; }
 
-        public MultiStyleExtension(string styleNames)
+        public MultiStyleExtension() { }
+
+        public MultiStyleExtension(string resourceKeys)
         {
-            if (styleNames == null) throw new ArgumentNullException("styleNames");
+            if (resourceKeys == null) throw new ArgumentNullException("resourceKeys");
 
-            _resourceKeys = Parse(styleNames);
+            ResourceKeys = resourceKeys;
+        }
 
-            if (!_resourceKeys.Any()) throw new ArgumentException("No input resource keys specified.");
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            var resultStyle = new Style();
+
+            var styleNames = Parse(ResourceKeys).ToArray();
+
+            if (!styleNames.Any()) throw new ArgumentException("No input resource keys specified.");
+
+            foreach (var currentResourceKey in styleNames)
+            {
+                var currentStyle = 
+                    new StaticResourceExtension(currentResourceKey)
+                        .ProvideValue(serviceProvider) as Style;
+
+                if (currentStyle == null)
+                {
+                    throw new InvalidOperationException("Could not find style with resource key " + currentResourceKey + ".");
+                }
+
+                resultStyle = Merge(resultStyle, currentStyle);
+            }
+            return resultStyle;
         }
 
         public static IEnumerable<string> Parse(string styleNames)
@@ -78,26 +104,6 @@ namespace SpicyTaco.MultiStyle
             }
 
             return result;
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            var resultStyle = new Style();
-
-            foreach (var currentResourceKey in _resourceKeys)
-            {
-                var currentStyle = 
-                    new StaticResourceExtension(currentResourceKey)
-                        .ProvideValue(serviceProvider) as Style;
-
-                if (currentStyle == null)
-                {
-                    throw new InvalidOperationException("Could not find style with resource key " + currentResourceKey + ".");
-                }
-
-                resultStyle = Merge(resultStyle, currentStyle);
-            }
-            return resultStyle;
         }
     }
 }
