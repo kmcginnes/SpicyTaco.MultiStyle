@@ -2,7 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MultiStyle Sample App" Height="350" Width="525">
+    <Window.Resources>
+        <Style x:Key="BigText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="36"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <TextBlock Text="MultiStyle Sample App" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="MultiStyle Sample App" Style="{StaticResource BigText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </Window>
