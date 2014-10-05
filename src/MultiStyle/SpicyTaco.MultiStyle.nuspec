@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SpicyTaco.MultiStyle</id>
+    <version>0.9.0.0</version>
+    <title>SpicyTaco.MultiStyle</title>
+    <authors>SpicyTaco</authors>
+    <owners>SpicyTaco</owners>
+    <licenseUrl>https://github.com/kmcginnes/SpicyTaco.MultiStyle/blob/master/License.md</licenseUrl>
+    <projectUrl>https://github.com/kmcginnes/SpicyTaco.MultiStyle</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+        Compose your WPF styles just like in CSS.
+
+        Merge multiple styles on a single control with this simple attached property.
+
+        &lt;TextBlock Text=&quot;MultiStyle Sample App&quot; 
+           st:Multi.Styles=&quot;BigText CenteredText GreenText PurpleText&quot;/&gt;
+    </description>
+    <releaseNotes>
+        Inaugural Release
+    </releaseNotes>
+    <copyright>Copyright 2014 © SpicyTaco</copyright>
+    <dependencies />
+    <tags>WPF Compose Merge Style SpicyTaco MultiStyle</tags>
+  </metadata>
+</package>
