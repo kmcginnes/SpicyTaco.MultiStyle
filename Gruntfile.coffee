@@ -43,11 +43,8 @@ module.exports = (grunt) ->
         stdout: true
         version: 4.0
         verbosity: 'quiet'
-    mspec:
-      options:
-        toolsPath: 'src/packages/Machine.Specifications.0.8.1/tools'
-        output: 'reports/mspec'
-      specs:
+    xunit:
+      tests:
         src: ['src/**/bin/Debug/*.Tests.dll']
     nugetpack:
       dist:
@@ -67,11 +64,12 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-msbuild'
   grunt.loadNpmTasks 'grunt-nuget'
   grunt.loadNpmTasks 'grunt-dotnet-mspec'
+  grunt.loadNpmTasks 'grunt-xunit'
 
   grunt.registerTask 'default', ['ci']
   grunt.registerTask 'publish', ['banner','bump','nugetpush']
   grunt.registerTask 'release', ['publish']
   grunt.registerTask 'deploy', ['publish']
-  grunt.registerTask 'ci', ['banner','clean','assemblyinfo','nugetrestore','msbuild','mspec','nugetpack']
+  grunt.registerTask 'ci', ['banner','clean','assemblyinfo','nugetrestore','msbuild','xunit','nugetpack']
 
   null

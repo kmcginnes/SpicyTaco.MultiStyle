@@ -36,6 +36,7 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-dotnet-mspec": "^0.1.0",
     "grunt-nuget": "^0.1.3",
+    "grunt-xunit": "^0.2.0",
     "time-grunt": "^0.3.2"
   }
 }
